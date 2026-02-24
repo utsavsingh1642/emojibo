@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emojibo - 5000+ Emojis</title>
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    font-family:Arial, sans-serif;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Splash Screen */
+#splash{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+}
+
+#splash img{
+    width:150px;
+}
+
+#splash h1{
+    margin-top:15px;
+    color:#fff;
+}
+
+/* Main Content */
+#mainContent{
+    display:none;
+}
+
+header{
+    background:#111;
+    padding:15px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.controls{
+    text-align:center;
+    padding:15px;
+}
+
+button{
+    padding:10px 18px;
+    margin:5px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:bold;
+    color:white;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+.btn1{background:#ff9800;}
+.btn2{background:#4caf50;}
+.btn3{background:#e91e63;}
+.btn4{background:#2196f3;}
+.btn5{background:#9c27b0;}
+
+.container{
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(60px,1fr));
+    gap:8px;
+    padding:20px;
+}
+
+.emoji{
+    font-size:26px;
+    text-align:center;
+    cursor:pointer;
+    padding:8px;
+    border-radius:10px;
+    transition:0.2s;
+}
+
+.emoji:hover{
+    background:#222;
+    transform:scale(1.2);
+}
+
+.ad{
+    background:#111;
+    padding:20px;
+    text-align:center;
+    margin:20px;
+    border:1px solid #333;
+}
+
+footer{
+    text-align:center;
+    padding:15px;
+    background:#111;
+}
+
+/* Toast */
+#toast{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#4caf50;
+    color:white;
+    padding:10px 20px;
+    border-radius:25px;
+    display:none;
+    z-index:9999;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Splash Screen -->
+<div id="splash">
+    <img src="logo.png" alt="Logo">
+    <h1>Welcome to Emojibo</h1>
+</div>
+
+<!-- Main Website -->
+<div id="mainContent">
+
+<header>Emojibo 😎 - 5000+ Emojis</header>
+
+<div class="ad">
+🔥 Advertisement Area (Paste AdSense Code Here)
+</div>
+
+<div class="controls">
+    <button class="btn1" onclick="loadAll()">All Emojis</button>
+    <button class="btn2" onclick="loadSmileys()">Smileys</button>
+    <button class="btn3" onclick="loadAnimals()">Animals</button>
+    <button class="btn4" onclick="loadFood()">Food</button>
+    <button class="btn5" onclick="loadSymbols()">Symbols</button>
+</div>
+
+<div class="container" id="emojiContainer"></div>
+
+<div class="ad">
+📢 Bottom Advertisement Area
+</div>
+
+<footer>
+© 2026 Emojibo | All Rights Reserved
+</footer>
+
+</div>
+
+<div id="toast">Copied!</div>
+
+<script>
+
+const container = document.getElementById("emojiContainer");
+const toast = document.getElementById("toast");
+
+/* Splash Screen */
+setTimeout(()=>{
+    document.getElementById("splash").style.display="none";
+    document.getElementById("mainContent").style.display="block";
+},2000);
+
+/* Universal Copy Function (Works Everywhere) */
+function copyEmoji(text){
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+
+    toast.style.display="block";
+    setTimeout(()=>{ toast.style.display="none"; },1200);
+}
+
+/* Generate Emoji Range */
+function generateRange(start,end,clear=true){
+    if(clear) container.innerHTML="";
+    for(let i=start;i<=end;i++){
+        let span=document.createElement("div");
+        span.className="emoji";
+        span.innerHTML="&#"+i+";";
+        span.onclick=function(){
+            copyEmoji(span.innerText);
+        }
+        container.appendChild(span);
+    }
+}
+
+/* 5000+ Emoji Ranges */
+function loadAll(){
+    container.innerHTML="";
+    generateRange(9728,10175,false);
+    generateRange(11088,12351,false);
+    generateRange(127744,129535,false);
+    generateRange(129648,131071,false);
+}
+
+function loadSmileys(){
+    generateRange(128512,128591);
+}
+
+function loadAnimals(){
+    generateRange(128000,128063);
+}
+
+function loadFood(){
+    generateRange(127789,127869);
+}
+
+function loadSymbols(){
+    generateRange(9728,9989);
+}
+
+/* Default Load */
+loadAll();
+
+</script>
+
+</body>
+</html>
